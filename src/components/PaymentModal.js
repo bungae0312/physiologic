@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Modal from "./Modal";
+import DateField from "./DateField";
 import { todayISO } from "@/lib/format";
 import { createPayment } from "@/lib/storage";
 
@@ -64,15 +65,13 @@ export default function PaymentModal({ open, onClose, userId, members, onSaved }
             ))}
           </select>
         </div>
-        <div className="grid grid-cols-2 gap-3">
-          <div>
-            <label className={labelCls}>날짜</label>
-            <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className={inputCls} />
-          </div>
-          <div>
-            <label className={labelCls}>금액(원)</label>
-            <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="0" className={inputCls} />
-          </div>
+        <div>
+          <label className={labelCls}>날짜</label>
+          <DateField value={date} onChange={setDate} minYear={new Date().getFullYear() - 3} />
+        </div>
+        <div>
+          <label className={labelCls}>금액(원)</label>
+          <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="0" className={inputCls} />
         </div>
         <div>
           <label className={labelCls}>항목</label>

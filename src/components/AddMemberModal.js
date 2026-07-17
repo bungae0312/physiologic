@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Modal from "./Modal";
+import DateField from "./DateField";
 import { todayISO } from "@/lib/format";
 import { createMember, updateMember } from "@/lib/storage";
 
@@ -123,17 +124,6 @@ export default function AddMemberModal({ open, onClose, userId, editingMember, o
             </select>
           </div>
           <div>
-            <label className={labelCls}>생년월일</label>
-            <input type="date" value={form.birth} onChange={set("birth")} className={inputCls} />
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 gap-3">
-          <div>
-            <label className={labelCls}>등록일</label>
-            <input type="date" value={form.join_date} onChange={set("join_date")} className={inputCls} />
-          </div>
-          <div>
             <label className={labelCls}>회원권 종류</label>
             <select value={form.membership_type} onChange={set("membership_type")} className={inputCls}>
               {MEMBERSHIP_TYPES.map((t) => (
@@ -143,14 +133,38 @@ export default function AddMemberModal({ open, onClose, userId, editingMember, o
           </div>
         </div>
 
+        <div>
+          <label className={labelCls}>생년월일</label>
+          <DateField value={form.birth} onChange={(v) => setForm((f) => ({ ...f, birth: v }))} />
+        </div>
+
+        <div>
+          <label className={labelCls}>등록일</label>
+          <DateField
+            value={form.join_date}
+            onChange={(v) => setForm((f) => ({ ...f, join_date: v }))}
+            minYear={new Date().getFullYear() - 3}
+          />
+        </div>
+
         <div className="grid grid-cols-2 gap-3">
           <div>
             <label className={labelCls}>회원권 시작일</label>
-            <input type="date" value={form.membership_start} onChange={set("membership_start")} className={inputCls} />
+            <DateField
+              value={form.membership_start}
+              onChange={(v) => setForm((f) => ({ ...f, membership_start: v }))}
+              minYear={new Date().getFullYear() - 3}
+              size="sm"
+            />
           </div>
           <div>
             <label className={labelCls}>회원권 종료일</label>
-            <input type="date" value={form.membership_end} onChange={set("membership_end")} className={inputCls} />
+            <DateField
+              value={form.membership_end}
+              onChange={(v) => setForm((f) => ({ ...f, membership_end: v }))}
+              minYear={new Date().getFullYear() - 3}
+              size="sm"
+            />
           </div>
         </div>
 

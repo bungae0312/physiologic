@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Modal from "./Modal";
+import DateField from "./DateField";
 import { todayISO } from "@/lib/format";
 import { createSchedule, updateSchedule, deleteSchedule } from "@/lib/storage";
 
@@ -93,15 +94,13 @@ export default function ScheduleModal({
             ))}
           </select>
         </div>
-        <div className="grid grid-cols-2 gap-3">
-          <div>
-            <label className={labelCls}>날짜</label>
-            <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className={inputCls} />
-          </div>
-          <div>
-            <label className={labelCls}>시간</label>
-            <input type="time" value={time} onChange={(e) => setTime(e.target.value)} className={inputCls} />
-          </div>
+        <div>
+          <label className={labelCls}>날짜</label>
+          <DateField value={date} onChange={setDate} minYear={new Date().getFullYear() - 3} />
+        </div>
+        <div>
+          <label className={labelCls}>시간</label>
+          <input type="time" value={time} onChange={(e) => setTime(e.target.value)} className={inputCls} />
         </div>
         <div>
           <label className={labelCls}>메모</label>

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Modal from "./Modal";
 import BodyChart from "./BodyChart";
+import DateField from "./DateField";
 import { Icon } from "./icons";
 import {
   listBodyRecords,
@@ -227,7 +228,7 @@ export default function MemberDetailModal({
           <form onSubmit={submitBodyRecord} className="mt-4 flex flex-wrap items-end gap-2 rounded-2xl bg-slate-50 p-3.5 dark:bg-white/5">
             <div>
               <label className={labelCls}>측정일</label>
-              <input type="date" value={brDate} onChange={(e) => setBrDate(e.target.value)} className={inputCls} />
+              <DateField value={brDate} onChange={setBrDate} minYear={new Date().getFullYear() - 3} size="sm" />
             </div>
             <div>
               <label className={labelCls}>체중(kg)</label>
@@ -283,7 +284,7 @@ export default function MemberDetailModal({
           <form onSubmit={submitSession} className="flex flex-wrap items-end gap-2 rounded-2xl bg-slate-50 p-3.5 dark:bg-white/5">
             <div>
               <label className={labelCls}>세션 날짜</label>
-              <input type="date" value={sessDate} onChange={(e) => setSessDate(e.target.value)} className={inputCls} />
+              <DateField value={sessDate} onChange={setSessDate} minYear={new Date().getFullYear() - 3} size="sm" />
             </div>
             <div className="flex-1 min-w-[160px]">
               <label className={labelCls}>운동 내용 메모</label>
