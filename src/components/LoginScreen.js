@@ -9,8 +9,8 @@ const inputCls =
   "w-full rounded-2xl border border-slate-200 bg-white/80 px-4 py-3 text-[15px] outline-none transition placeholder:text-slate-400 focus:border-brand-500 focus:ring-4 focus:ring-brand-500/15 dark:border-white/10 dark:bg-white/5 dark:placeholder:text-slate-500";
 const labelCls = "mb-1.5 block text-sm font-medium text-slate-600 dark:text-slate-300";
 
-export default function LoginScreen() {
-  const [tab, setTab] = useState("login"); // 'login' | 'signup'
+export default function LoginScreen({ initialTab = "login", onBack }) {
+  const [tab, setTab] = useState(initialTab); // 'login' | 'signup'
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
@@ -102,7 +102,16 @@ export default function LoginScreen() {
         <div className="absolute -bottom-52 -right-32 h-[40rem] w-[40rem] rounded-full bg-fuchsia-300/25 blur-3xl dark:bg-fuchsia-700/15" />
       </div>
 
-      <div className="absolute right-5 top-5">
+      <div className="absolute right-5 top-5 flex items-center gap-2">
+        {onBack && (
+          <button
+            onClick={onBack}
+            className="flex h-10 items-center gap-1.5 rounded-full border border-slate-200 bg-white/70 px-4 text-sm font-medium text-slate-600 transition hover:bg-white dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10"
+          >
+            <Icon name="chevron-left" className="h-4 w-4" />
+            돌아가기
+          </button>
+        )}
         <ThemeToggle />
       </div>
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import LandingPage from "@/components/LandingPage";
 import LoginScreen from "@/components/LoginScreen";
 import Dashboard from "@/components/Dashboard";
 import { getSession, onAuthStateChange, getProfile, signOut } from "@/lib/storage";
@@ -9,6 +10,7 @@ export default function Home() {
   const [session, setSession] = useState(null);
   const [profile, setProfile] = useState(null);
   const [ready, setReady] = useState(false);
+  const [authView, setAuthView] = useState("landing"); // 'landing' | 'login' | 'signup'
 
   useEffect(() => {
     let mounted = true;
@@ -48,6 +50,7 @@ export default function Home() {
     await signOut();
     setSession(null);
     setProfile(null);
+    setAuthView("landing");
   };
 
   if (!ready) {
@@ -58,15 +61,28 @@ export default function Home() {
     );
   }
 
-  return session ? (
-    <Dashboard
-      userId={session.user.id}
-      email={session.user.email}
-      profile={profile}
-      onProfileChange={setProfile}
-      onLogout={handleLogout}
-    />
-  ) : (
-    <LoginScreen />
+  if (session) {
+    return (
+      <Dashboard
+        userId={session.user.id}
+        email={session.user.email}
+        profile={profile}
+        onProfileChange={setProfile}
+        onLogout={handleLogout}
+      />
+    );
+  }
+
+  if (authView === "landing") {
+    return (
+      <LandingPage
+        onGetStarted={() => setAuthView("signup")}
+        onLogin={() => setAuthView("login")}
+      />
+    );
+  }
+
+  return (
+    <LoginScreen initialTab={authView} onBack={() => setAuthView("landing")} />
   );
 }
