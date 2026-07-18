@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Modal from "./Modal";
 import DateField from "./DateField";
+import TimeField from "./TimeField";
 import { todayISO } from "@/lib/format";
 import { createSchedule, updateSchedule, deleteSchedule } from "@/lib/storage";
 
@@ -100,7 +101,7 @@ export default function ScheduleModal({
         </div>
         <div>
           <label className={labelCls}>시간</label>
-          <input type="time" value={time} onChange={(e) => setTime(e.target.value)} className={inputCls} />
+          <TimeField value={time} onChange={setTime} />
         </div>
         <div>
           <label className={labelCls}>메모</label>

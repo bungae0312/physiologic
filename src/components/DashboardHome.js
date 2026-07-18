@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 import { Icon } from "./icons";
-import { formatDateDot, daysLeft, fmtWon, membershipStatus } from "@/lib/format";
+import { formatDateDot, daysLeft, fmtWon, membershipStatus, formatTime12 } from "@/lib/format";
 
 function memberName(members, id) {
   return members.find((m) => m.id === id)?.name || "삭제된 회원";
@@ -101,7 +101,7 @@ export default function DashboardHome({ trainerName, members, schedules, payment
                       <p className="truncate text-xs text-slate-400">{s.memo || "PT 세션"}</p>
                     </div>
                     <span className="shrink-0 rounded-full bg-slate-100 px-2.5 py-1 text-xs font-bold text-slate-500 dark:bg-white/10 dark:text-slate-300">
-                      {s.time || "-"}
+                      {formatTime12(s.time)}
                     </span>
                   </div>
                 ))}

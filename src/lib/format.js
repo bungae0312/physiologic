@@ -51,6 +51,16 @@ export function ptRemaining(member, sessionCount) {
   return Math.max(0, (member.pt_total || 0) - (sessionCount || 0));
 }
 
+// "14:30" -> "오후 2:30"
+export function formatTime12(hhmm) {
+  if (!hhmm) return "-";
+  const [h, m] = hhmm.split(":").map(Number);
+  const period = h < 12 ? "오전" : "오후";
+  let hour12 = h % 12;
+  if (hour12 === 0) hour12 = 12;
+  return `${period} ${hour12}:${String(m).padStart(2, "0")}`;
+}
+
 export function membershipStatus(member) {
   const dl = daysLeft(member.membership_end);
   if (dl === null) return "active";

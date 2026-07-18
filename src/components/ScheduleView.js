@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import Modal from "./Modal";
 import ScheduleModal from "./ScheduleModal";
 import { Icon } from "./icons";
-import { todayISO, formatDateDot } from "@/lib/format";
+import { todayISO, formatDateDot, formatTime12 } from "@/lib/format";
 import { deleteSchedule } from "@/lib/storage";
 
 const DOW = ["일", "월", "화", "수", "목", "금", "토"];
@@ -145,7 +145,7 @@ export default function ScheduleView({ userId, members, schedules, onScheduleSav
                         isToday ? "bg-white/15 text-white" : "bg-brand-100 text-brand-700 dark:bg-brand-500/15 dark:text-brand-300"
                       }`}
                     >
-                      {s.time} {memberName(members, s.member_id)}
+                      {formatTime12(s.time)} {memberName(members, s.member_id)}
                     </div>
                   ))}
                   {events.length > 2 && (
@@ -167,7 +167,7 @@ export default function ScheduleView({ userId, members, schedules, onScheduleSav
             {dayEvents.map((s) => (
               <div key={s.id} className="flex items-center justify-between rounded-xl border border-slate-100 px-3.5 py-3 dark:border-white/5">
                 <div>
-                  <p className="text-sm font-semibold">{s.time || "-"} · {memberName(members, s.member_id)}</p>
+                  <p className="text-sm font-semibold">{formatTime12(s.time)} · {memberName(members, s.member_id)}</p>
                   <p className="text-xs text-slate-400">{s.memo || "메모 없음"}</p>
                 </div>
                 <div className="flex items-center gap-3">
